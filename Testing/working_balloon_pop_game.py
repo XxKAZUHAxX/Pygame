@@ -5,8 +5,8 @@ import random
 
 # Pygame initialization
 pygame.init()
-screen_width = 640
-screen_height = 480
+screen_width = 1280
+screen_height = 720
 game_screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Balloon Pop")
 
@@ -22,7 +22,7 @@ class Balloon:
         self.radius = random.randint(20, 50)
         self.x = random.randint(self.radius, screen_width - self.radius)
         self.y = screen_height + self.radius
-        self.speed = random.randint(1, 3)
+        self.speed = random.randint(4,8)
         self.popped = False
 
     def move(self):
@@ -82,6 +82,8 @@ while running:
 
     # Update the Pygame display
     pygame.display.update()
+    if 0xFF == 27:
+        break
 
 # Release the video capture
 cap.release()
