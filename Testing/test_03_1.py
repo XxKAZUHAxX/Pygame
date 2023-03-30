@@ -22,7 +22,7 @@ class Balloon:
         self.radius = random.randint(20, 50)
         self.x = random.randint(self.radius, screen_width - self.radius)
         self.y = screen_height + self.radius
-        self.speed = random.randint(4,8)
+        self.speed = random.randint(5, 8)
         self.popped = False
 
     def move(self):
@@ -33,6 +33,14 @@ class Balloon:
 
 # Initialize balloons list
 balloons = []
+
+# Initialize scoreboard and timer
+score = 0
+font = pygame.font.SysFont(None, 32)
+score_text = font.render("Score: " + str(score), True, (0, 0, 0))
+game_screen.blit(score_text, (10, 10))
+start_time = pygame.time.get_ticks()
+time_left = 60
 
 # Game loop
 running = True
@@ -73,6 +81,8 @@ while running:
             for balloon in balloons:
                 if not balloon.popped and (balloon.x - x)**2 + (balloon.y - y)**2 <= balloon.radius**2:
                     balloon.popped = True
+                    score += 1
+                    score_text = font.render("Score: " + str(score), True, (0, 0, 0))
             # Display finger position
             pygame.draw.circle(game_screen, (255, 0, 0), (x, y), 10)
 
@@ -80,9 +90,17 @@ while running:
     if random.randint(0, 30) == 0:
         balloons.append(Balloon())
 
+    # Update the scoreboard
+    game_screen.blit(score_text, (10, 10))
+
+    # Update the timer
+    time_left = max(0, 30 - int((pygame.time.get_ticks() - start_time) / 100))
+    time_text = font.render("Time: " + str(time_left), True, (0, 0, 0))
+    game_screen.blit(time_text, (600, 10))
+    
     # Update the Pygame display
     pygame.display.update()
-
+    
 # Release the video capture
 cap.release()
 

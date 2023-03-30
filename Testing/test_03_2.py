@@ -10,6 +10,9 @@ screen_height = 720
 game_screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Balloon Pop")
 
+# Font initialization
+font = pygame.font.SysFont("Arial", 36)
+
 # Mediapipe initialization for hand tracking
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
@@ -22,7 +25,7 @@ class Balloon:
         self.radius = random.randint(20, 50)
         self.x = random.randint(self.radius, screen_width - self.radius)
         self.y = screen_height + self.radius
-        self.speed = random.randint(4,8)
+        self.speed = random.randint(5, 8)
         self.popped = False
 
     def move(self):
@@ -34,8 +37,13 @@ class Balloon:
 # Initialize balloons list
 balloons = []
 
+# Initialize score and timer
+score = 0
+time_left = 60 # in seconds
+
 # Game loop
 running = True
+start_time = pygame.time.get_ticks() // 1000
 while running:
     # Event handling
     for event in pygame.event.get():
@@ -73,6 +81,7 @@ while running:
             for balloon in balloons:
                 if not balloon.popped and (balloon.x - x)**2 + (balloon.y - y)**2 <= balloon.radius**2:
                     balloon.popped = True
+                    score += 1
             # Display finger position
             pygame.draw.circle(game_screen, (255, 0, 0), (x, y), 10)
 
@@ -80,9 +89,21 @@ while running:
     if random.randint(0, 30) == 0:
         balloons.append(Balloon())
 
+    # Display score
+    score_text = font.render("Score: " + str(score), True, (0, 0, 0))
+    game_screen.blit(score_text, (10, 10))
+
+    # Display timer
+    time_elapsed = (pygame.time.get_ticks() // 1000) - start_time
+    time_left = 10 - time_elapsed
+    if time_left < 0:
+        time_left = 0
+    time_text = font.render("Time: " + str(time_left), True, (0, 0, 0))
+    game_screen.blit(time_text, (700, 10))
+    
     # Update the Pygame display
     pygame.display.update()
-
+    
 # Release the video capture
 cap.release()
 
