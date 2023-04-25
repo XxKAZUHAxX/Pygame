@@ -245,7 +245,7 @@ def main():
         game_screen.blit(player, image_rect)
         
         # Spawn new balloons
-        if random.randint(0, 20) == 0:
+        if random.randint(0, 18) == 0:
             balloons.append(Balloon())
 
         # Display score
