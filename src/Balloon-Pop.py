@@ -24,22 +24,22 @@ smallfont = pygame.font.SysFont('Arial',36)
 quitmenu = smallfont.render('Quit' , True , color) 
 startmenu = smallfont.render('Start', True, color)
 text = smallfont.render('Press Esc to quit', True, black)
-bgmain = pygame.image.load("main-menu-notext.png")
-startimg = pygame.image.load('startimg.png')
-quitimg = pygame.image.load('quitimg.png')
-gameoverimg = pygame.image.load('gameover.png')
-startimgResized = pygame.image.load('startimg600x400.png')         
-quitimgResized = pygame.image.load('quitimg500x350.png')
-bg = pygame.image.load('bg.jpg')
-bg2 = pygame.image.load('background2.png')
-suspense = pygame.image.load('suspense.png')
-suspense1 = pygame.image.load('suspense1.png')
-suspense2 = pygame.image.load('suspense2.png')
-credits = pygame.image.load('credits.png')
+bgmain = pygame.image.load('Images\\main-menu-notext.png')
+startimg = pygame.image.load('Images\\startimg.png')
+quitimg = pygame.image.load('Images\\quitimg.png')
+gameoverimg = pygame.image.load('Images\\gameover.png')
+startimgResized = pygame.image.load('Images\\startimg600x400.png')         
+quitimgResized = pygame.image.load('Images\\quitimg500x350.png')
+bg = pygame.image.load('Images\\bg.jpg')
+bg2 = pygame.image.load('Images\\background2.png')
+suspense = pygame.image.load('Images\\suspense.png')
+suspense1 = pygame.image.load('Images\\suspense1.png')
+suspense2 = pygame.image.load('Images\\suspense2.png')
+credits = pygame.image.load('Images\\credits.png')
 credits = pygame.transform.scale(credits,(screen_width,31))
 backgroundimg = pygame.Surface((game_screen.get_size()))
 backgroundimg.fill((100, 0, 0))
-image = image2 = pygame.image.load('bg.jpg')
+image = image2 = pygame.image.load('Images\\bg.jpg')
 image = image.convert()
 rect = image.get_rect()
 
@@ -177,8 +177,8 @@ def main():
 
     # Initialize score and timer
     score = 0
-    time_left = 20 # in seconds
-    total_time = 20
+    time_left = 60 # in seconds
+    total_time = 60
     add_time = 0
     append_time = 0
     
@@ -245,7 +245,7 @@ def main():
         game_screen.blit(player, image_rect)
         
         # Spawn new balloons
-        if random.randint(0, 10) == 0:
+        if random.randint(0, 20) == 0:
             balloons.append(Balloon())
 
         # Display score
@@ -296,8 +296,8 @@ def main():
             else:
                 i += 5
         if time_left <= 0:
-            game_screen.blit(pygame.image.load('jumpscare2.png'), (0, 0))
-            game_screen.blit(pygame.image.load('gameover.png'), (0, 0))
+            game_screen.blit(pygame.image.load('Images\\jumpscare2.png'), (0, 0))
+            game_screen.blit(pygame.image.load('Images\\gameover.png'), (0, 0))
             game_screen.blit(score_text, (800, 700))
             pygame.mixer.Sound.play(gameoversfx)
             pygame.display.update()
