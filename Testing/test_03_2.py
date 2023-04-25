@@ -22,10 +22,10 @@ cap = cv2.VideoCapture(0)
 class Balloon:
     def __init__(self):
         self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        self.radius = random.randint(20, 50)
+        self.radius = random.randint(30, 60)
         self.x = random.randint(self.radius, screen_width - self.radius)
         self.y = screen_height + self.radius
-        self.speed = random.randint(5, 8)
+        self.speed = random.randint(6, 10)
         self.popped = False
 
     def move(self):
@@ -95,7 +95,7 @@ while running:
 
     # Display timer
     time_elapsed = (pygame.time.get_ticks() // 1000) - start_time
-    time_left = 10 - time_elapsed
+    time_left = 60 - time_elapsed
     if time_left < 0:
         time_left = 0
     time_text = font.render("Time: " + str(time_left), True, (0, 0, 0))
